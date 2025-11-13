@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+    # Rewrite ইঞ্জিন চালু করা
+    RewriteEngine On
+
+    # বেস ডিরেক্টরি সেট করা (যদি আপনার অ্যাপ্লিকেশন কোনো সাব-ফোল্ডারে থাকে)
+    # RewriteBase /
+
+    # ১. যদি অনুরোধটি একটি ফাইল হিসেবে বিদ্যমান থাকে, তবে তা রুট করবেন না (যেমন: CSS, JS, Image ফাইল)
+    RewriteCond %{REQUEST_FILENAME} !-f
+
+    # ২. যদি অনুরোধটি একটি ডিরেক্টরি হিসেবে বিদ্যমান থাকে, তবে তা রুট করবেন না
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # ৩. অন্যথায়, সমস্ত অনুরোধ index.php তে রি-রাইট করুন
+    # QSA (Query String Append) মানে URL-এর সাথে থাকা GET প্যারামিটারগুলি index.php তে পাস করা হবে
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
